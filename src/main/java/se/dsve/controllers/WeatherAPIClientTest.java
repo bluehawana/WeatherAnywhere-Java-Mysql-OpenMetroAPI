@@ -1,5 +1,5 @@
 package se.dsve.controllers;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 import se.dsve.models.WeatherInfo;
 
 import java.io.IOException;
