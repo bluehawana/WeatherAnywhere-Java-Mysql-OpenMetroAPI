@@ -26,12 +26,27 @@ public class WeatherAPIClient {
         double longitude = city.getLongitude();
 
         URL apiUrl = new URL(API_BASE_URL + "?latitude=" + latitude + "&longitude=" + longitude + "&hourly=temperature_2m,weather_code,wind_speed_10m&wind_speed_unit=ms&forecast_days=1");
+
         HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
 
         connection.setRequestMethod("GET");
         connection.setConnectTimeout(5000);
         connection.setReadTimeout(5000);
 
+
+          try {
+              return createConnection(connection, apiUrl);
+          } finally {
+              connection.disconnect();
+          }
+      }
+
+    public WeatherInfo createConnection(URL apiUrl) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
+        return createConnection(connection, apiUrl);
+    }
+
+    private WeatherInfo createConnection(HttpURLConnection connection, URL apiUrl) {
         try {
             int responseCode = connection.getResponseCode();
             if (responseCode != HttpURLConnection.HTTP_OK) {
@@ -48,9 +63,10 @@ public class WeatherAPIClient {
 
             JSONObject jsonResponse = new JSONObject(response.toString());
             return parseWeatherData(jsonResponse);
-        } finally {
-            connection.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
     WeatherInfo parseWeatherData(JSONObject jsonResponse) {
