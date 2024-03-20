@@ -2,6 +2,7 @@ package se.dsve.controllers;
 
 import org.json.JSONObject;
 import se.dsve.models.City;
+import se.dsve.models.WeatherDescription;
 import se.dsve.models.WeatherInfo;
 
 import java.io.BufferedReader;
@@ -25,7 +26,7 @@ public class WeatherAPIClient {
         double latitude = city.getLatitude();
         double longitude = city.getLongitude();
         // Skapa URL för att hämta väderdata för den givna staden
-        URL apiUrl = new URL(API_BASE_URL + "?latitude=" + latitude + "&longitude=" + longitude+"&hourly=temperature_2m,wind_speed_10m&wind_speed_unit=ms&forecast_days=1");
+        URL apiUrl = new URL(API_BASE_URL + "?latitude=" + latitude + "&longitude=" + longitude+"&hourly=temperature_2m,weather_code,wind_speed_10m&wind_speed_unit=ms&forecast_days=1");
         // Skapa en HTTP-anslutning med hjälp av createConnection-metoden
         HttpURLConnection connection = createConnection(apiUrl);
 
@@ -67,16 +68,17 @@ public class WeatherAPIClient {
     }
 
     WeatherInfo parseWeatherData(JSONObject jsonResponse) {
-        // TODO: Skriv din kod här
         JSONObject hourlyData = jsonResponse.getJSONObject("hourly");
         JSONObject hourlyUnits = jsonResponse.getJSONObject("hourly_units");
 
         double temperature = hourlyData.getJSONArray("temperature_2m").getDouble(0);
         double windSpeed = hourlyData.getJSONArray("wind_speed_10m").getDouble(0);
+        int weatherCode = hourlyData.getJSONArray("weather_code").getInt(0);
 
         String temperatureUnit = hourlyUnits.getString("temperature_2m");
         String windSpeedUnit = hourlyUnits.getString("wind_speed_10m");
+        String weatherDescription = WeatherDescription.getWeatherDescription(weatherCode);
 
-        return new WeatherInfo(temperature, windSpeed, temperatureUnit, windSpeedUnit);
-}
+        return new WeatherInfo(temperature, windSpeed, temperatureUnit, windSpeedUnit, weatherDescription);
+    }
 }

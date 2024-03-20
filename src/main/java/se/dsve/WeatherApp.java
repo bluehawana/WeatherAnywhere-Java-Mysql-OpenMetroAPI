@@ -39,6 +39,7 @@ public class WeatherApp {
                 System.out.println("Vädret i " + city.getName() + ":");
                 System.out.println("Temperatur: " + weatherInfo.getTemperature() + "°C");
                 System.out.println("Vindhastighet: " + weatherInfo.getWindSpeed() + " km/h");
+                System.out.println("Väderdescription:" +weatherInfo.getWeatherDescription()); // Lägg till väderbeskrivning
             } catch (Exception e) {
                 System.out.println("Ett fel inträffade: " + e.getMessage());
             }
