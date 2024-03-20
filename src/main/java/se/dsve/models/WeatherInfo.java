@@ -18,11 +18,9 @@ public class WeatherInfo {
 
     // Överlagrad konstruktör som accepterar temperatur och vindhastighet och sätter en standardbeskrivning
 
-    public WeatherInfo(JSONObject jsonObject, double temperature, double windSpeed, String description) {
+    public WeatherInfo(JSONObject jsonObject, double temperature, double windSpeed) {
         this.temperature = temperature;
         this.windSpeed = windSpeed;
-        this.tempratureUnit = tempratureUnit;
-        this.windSpeedUnit = windSpeedUnit;
     }
 
     public double getTemperature() {
