@@ -1,31 +1,43 @@
 package se.dsve.models;
 
+import org.json.JSONObject;
+
 public class WeatherInfo {
-    private final double temperature; // Temperaturen i grader Celsius
-    private final double windSpeed; // Vindhastigheten i km/h
-    private final String description; // Beskrivningen av vädret
+    private double temperature; // Temperaturen i grader Celsius
+    private double windSpeed; // Vindhastigheten i km/h
+    private String tempratureUnit = "°C"; // Enhet för temperaturen
+    private String windSpeedUnit="m";// Beskrivningen av vädret
 
     // Konstruktör som accepterar temperatur, vindhastighet och beskrivning
-    public WeatherInfo(double temperature, double windSpeed, String description) {
+    public WeatherInfo(double temperature, double windSpeed, String description, String windSpeedUnit) {
         this.temperature = temperature;
         this.windSpeed = windSpeed;
-        this.description = description;
+        this.tempratureUnit = tempratureUnit;
+        this.windSpeedUnit = windSpeedUnit;
     }
 
     // Överlagrad konstruktör som accepterar temperatur och vindhastighet och sätter en standardbeskrivning
-    public WeatherInfo(double temperature, double windSpeed) {
-        this(temperature, windSpeed, "Ingen beskrivning tillgänglig");
+
+    public WeatherInfo(JSONObject jsonObject, double temperature, double windSpeed, String description) {
+        this.temperature = temperature;
+        this.windSpeed = windSpeed;
+        this.tempratureUnit = tempratureUnit;
+        this.windSpeedUnit = windSpeedUnit;
     }
 
     public double getTemperature() {
-        return 0.0;
+        return temperature;
     }
 
     public double getWindSpeed() {
-        return 0.0;
+        return windSpeed;
     }
 
-    public String getDescription() {
-        return "Ingen beskrivning tillgänglig";
+    public String getTempratureUnit() {
+        return tempratureUnit;
+    }
+
+    public String getWindSpeedUnit() {
+        return windSpeedUnit;
     }
 }
