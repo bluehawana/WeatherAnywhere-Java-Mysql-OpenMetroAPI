@@ -38,7 +38,7 @@ public class WeatherAPIClient {
         }
     }
 
-    private WeatherInfo createConnection(HttpURLConnection connection) throws IOException {
+    WeatherInfo createConnection(HttpURLConnection connection) throws IOException {
         int responseCode = connection.getResponseCode();
         if (responseCode != HttpURLConnection.HTTP_OK) {
             throw new IOException("Failed to fetch weather data. Response code: " + responseCode);
