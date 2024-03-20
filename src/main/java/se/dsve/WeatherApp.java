@@ -14,7 +14,7 @@ public class WeatherApp {
 
     public WeatherApp() {
         this.cityManager = new CityManager(); // Instantiate CityManager
-        this.apiClient = new WeatherAPIClient(cityManager)  ; // Instantiate WeatherAPIClient
+        this.apiClient = new WeatherAPIClient()  ; // Instantiate WeatherAPIClient
         this.scanner = new Scanner(System.in); // Instansiera CityManager
     }
 
@@ -39,7 +39,7 @@ public class WeatherApp {
                 System.out.println("Vädret i " + city.getName() + ":");
                 System.out.println("Temperatur: " + weatherInfo.getTemperature() + "°C");
                 System.out.println("Vindhastighet: " + weatherInfo.getWindSpeed() + " km/h");
-                System.out.println("Väderdescription:" +weatherInfo.getWeatherDescription()); // Lägg till väderbeskrivning
+                System.out.println("Väderdescription:" +weatherInfo.getDescription()); // Lägg till väderbeskrivning
             } catch (Exception e) {
                 System.out.println("Ett fel inträffade: " + e.getMessage());
             }
