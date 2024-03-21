@@ -9,56 +9,18 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <!-- Adjusted to a widely supported and stable version of Java -->
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-        <!-- Your existing dependencies -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20240303</version>
         </dependency>
-
-        <!-- JUnit Jupiter API for unit testing -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- JUnit Jupiter Engine for running the tests -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.2</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <!-- Ensuring Maven uses the JUnit Platform for testing -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version> <!-- Ensure compatibility with JUnit 5 -->
-                <configuration>
-                    <!-- Configure Surefire to output XML reports -->
-                    <reportsDirectory>${project.build.directory}/result</reportsDirectory>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
 

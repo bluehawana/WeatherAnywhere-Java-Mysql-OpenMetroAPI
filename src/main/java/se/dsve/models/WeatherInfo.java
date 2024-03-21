@@ -1,9 +1,5 @@
 package se.dsve.models;
 
-import org.json.JSONObject;
-
-import se.dsve.models.WeatherDescription;
-
 public class WeatherInfo {
     private final double temperature; // Temperaturen i grader Celsius
     private final double windSpeed; // Vindhastigheten i km/h
