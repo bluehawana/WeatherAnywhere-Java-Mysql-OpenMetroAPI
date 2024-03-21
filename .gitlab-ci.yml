@@ -74,5 +74,5 @@ python_tests:
     paths:
       - result/*.xml
     reports:
-        junit: result/*.xml
+      junit: result/*.xml
 
