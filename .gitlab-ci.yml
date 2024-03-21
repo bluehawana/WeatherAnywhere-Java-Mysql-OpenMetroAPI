@@ -69,13 +69,10 @@ python_tests:
     - pip install poetry
     - poetry install
     - poetry run python main.py
-  # artifacts:
-    #when: always
-    #paths:
-     # - result/*.xml
-    # reports:
-     # junit: result/*.xml
-      # artifacts:
-      #   paths:
-      #     - result/*.xml
+  artifacts:
+    when: always
+    paths:
+      - result/*.xml
+    reports:
+        junit: result/*.xml
 
