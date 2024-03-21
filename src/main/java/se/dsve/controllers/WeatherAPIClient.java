@@ -101,8 +101,8 @@ public class WeatherAPIClient {
         double windSpeed = hourlyData.getJSONArray("wind_speed_10m").getDouble(0);
         int weatherCode = hourlyData.getJSONArray("weather_code").getInt(0);
 
-        String weatherDescription = WeatherDescription.getWeatherDescription(weatherCode);
+        String description = WeatherDescription.getWeatherDescription(weatherCode);
 
-        return new WeatherInfo(temperature, windSpeed, weatherDescription);
+        return new WeatherInfo(temperature, windSpeed, description);
     }
 }
