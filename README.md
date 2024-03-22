@@ -12,9 +12,9 @@ The application uses the Open-Meteo.com API to fetch weather information using t
 
 ## Usage
 To use the application, simply input the name of the city you want to check the weather for. The application will handle the rest, providing you with the current weather information for that city.  
-Development
 
-## This application was developed with Java and Maven. It uses MySQL for database management and interacts with the OpenCageData and Open-Meteo.com APIs for data retrieval.  
+## Development
+This application was developed with Java and Maven. It uses MySQL for database management and interacts with the OpenCageData and Open-Meteo.com APIs for data retrieval. The core logic is to acheive the goal of checking weather in any city in the world by input it. Later there will be an Andriod and iOS versions as well and they will keep the same black-white console style.  
 
 ## Future Improvements
 Future improvements to this application could include expanding the list of cities, improving the user interface, and adding more detailed weather information.
