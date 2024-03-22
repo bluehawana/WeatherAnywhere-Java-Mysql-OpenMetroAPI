@@ -23,16 +23,16 @@ public class City {
 
     public String getName() {
         // TODO: Skriv din kod här
-        return name;
+        return null;
     }
 
     public double getLatitude() {
         // TODO: Skriv din kod här
-        return latitude;
+        return -1;
     }
 
     public double getLongitude() {
         // TODO: Skriv din kod här
-        return longitude;
+        return -1;
     }
 }
