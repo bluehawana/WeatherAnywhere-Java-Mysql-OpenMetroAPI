@@ -1,5 +1,4 @@
 package se.dsve;
-
 // https://open-meteo.com/
 // https://open-meteo.com/doc
 
@@ -11,3 +10,4 @@ public class Main {
         weatherApp.run();
     }
 }
+
