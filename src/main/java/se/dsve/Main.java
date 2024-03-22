@@ -4,7 +4,7 @@ package se.dsve;
 
 import java.sql.SQLException;
 
-public class git Main {
+public class Main {
     public static void main(String[] args) throws SQLException {
         WeatherApp weatherApp = new WeatherApp();
         weatherApp.run();
