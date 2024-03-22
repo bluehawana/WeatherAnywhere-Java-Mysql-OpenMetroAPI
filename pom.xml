@@ -20,6 +20,7 @@
             <artifactId>json</artifactId>
             <version>20240303</version>
         </dependency>
+<<<<<<< HEAD
         <dependency>
             <groupId>io.github.cdimascio</groupId>
             <artifactId>dotenv-java</artifactId>
