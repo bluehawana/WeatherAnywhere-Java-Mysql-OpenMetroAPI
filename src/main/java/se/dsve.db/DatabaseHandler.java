@@ -3,8 +3,8 @@
 package se.dsve.db;
 
 import org.h2.engine.Database;
-import se.dsve.models.City;
 import se.dsve.controllers.CityManager;
+import se.dsve.models.City;
 
 import java.io.IOException;
 import java.sql.*;
@@ -16,13 +16,13 @@ public class DatabaseHandler {
 
     private Connection connection;
     private Database database;
-    private static final String DB_SERVER = dotenv.get("DB_SERVER");
-    private static final String DB_PORT = dotenv.get("DB_PORT");
-    private static final String DB_USER = dotenv.get("DB_USER");
-    private static final String DB_PASSWORD = dotenv.get("DB_PASSWORD");
+    //private static final String DB_SERVER = dotenv.get("DB_SERVER");
+    //private static final String DB_PORT = dotenv.get("DB_PORT");
+    //private static final String DB_USER = dotenv.get("DB_USER");
+    //private static final String DB_PASSWORD = dotenv.get("DB_PASSWORD");
 
-    private static final String DB_URL = "jdbc:mysql://" + DB_SERVER + ":" + DB_PORT + "/";
-    private static final String CONNECTION_URL = DB_URL + "?useSSL=false&allowPublicKeyRetrieval=true";
+    //private static final String DB_URL = "jdbc:mysql://" + DB_SERVER + ":" + DB_PORT + "/";
+    //private static final String CONNECTION_URL = DB_URL + DB_DATABASE + "?useSSL=false&allowPublicKeyRetrieval=true";
     private static final String CREATE_DATABASE_SQL = "CREATE DATABASE IF NOT EXISTS " + DB_DATABASE;
 
     static {
@@ -33,22 +33,31 @@ public class DatabaseHandler {
         }
     }
 
-    private static final String CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS weather ( cityName VARCHAR(50), latitude DOUBLE, longitude DOUBLE)";
+    private static final String CREATE_TABLE_SQL = "CREATE TABLE IF NOT EXISTS aliweather ( cityName VARCHAR(50), latitude DOUBLE, longitude DOUBLE)";
 
-    public DatabaseHandler() throws SQLException {
-        connection = DriverManager.getConnection(CONNECTION_URL, DB_USER, DB_PASSWORD);
-        initializeDatabase();
+    public DatabaseHandler() {
+        try {
+            connection = DatabaseConnection.getConnection();
+            initializeDatabase();
+        } catch (SQLException e) {
+            System.out.println("Failed to create a connection to the database");
+            if (e.getCause() instanceof com.mysql.cj.exceptions.CJCommunicationsException) {
+                System.out.println("Unable to communicate with the database. Please check your network connection and database server status.");
+            } else {
+                printSQLException(e);
+            }
+        }
     }
 
     private void initializeDatabase() throws SQLException {
-        try (Connection connection = DriverManager.getConnection(CONNECTION_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = DatabaseConnection.getConnection();
              Statement statement = connection.createStatement()) {
             // Create the database if it doesn't exist
-            statement.executeUpdate("CREATE DATABASE IF NOT EXISTS weather");
-            // Switch to the 'weather' database
-            statement.execute("USE weather");
+            statement.executeUpdate("CREATE DATABASE IF NOT EXISTS aliweather");
+            // Switch to the 'aliweather' database
+            statement.execute("USE aliweather");
             // Create the 'weather' table if it doesn't exist
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS weather (cityName VARCHAR(50), latitude DOUBLE, longitude DOUBLE)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS aliweather (cityName VARCHAR(50), latitude DOUBLE, longitude DOUBLE)");
             System.out.println("Database and table checked/created successfully");
         } catch (SQLException e) {
             printSQLException(e);
@@ -70,7 +79,7 @@ public class DatabaseHandler {
 
     public Connection getConnection() {
         try {
-            Connection connection = DriverManager.getConnection(CONNECTION_URL, DB_USER, DB_PASSWORD);
+            Connection connection = DatabaseConnection.getConnection();
             try (Statement statement = connection.createStatement()) {
                 statement.execute("USE " + DB_DATABASE);
             }
@@ -82,9 +91,9 @@ public class DatabaseHandler {
     }
 
     public boolean cityExists(String cityName) {
-        String checkCitySql = "SELECT COUNT(*) FROM weather WHERE cityName = ?";
-        try (Connection conn = DriverManager.getConnection(CONNECTION_URL, DB_USER, DB_PASSWORD)) {
-            conn.setCatalog("weather"); // Select the 'weather' database
+        String checkCitySql = "SELECT COUNT(*) FROM aliweather WHERE cityName = ?";
+        try (Connection conn = DatabaseConnection.getConnection() ){
+            conn.setCatalog("aliweather"); // Select the 'weather' database
             try (PreparedStatement checkCityStmt = conn.prepareStatement(checkCitySql)) {
                 checkCityStmt.setString(1, cityName);
                 ResultSet rs = checkCityStmt.executeQuery();
@@ -103,9 +112,9 @@ public class DatabaseHandler {
         String input=cityName;
         City city = CityManager.getCity(input);
 
-        String getCitySql = "SELECT * FROM weather WHERE cityName = ?";
-        try (Connection conn = DriverManager.getConnection(CONNECTION_URL, DB_USER, DB_PASSWORD)) {
-            conn.setCatalog("weather");
+        String getCitySql = "SELECT * FROM aliweather WHERE cityName = ?";
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            conn.setCatalog("aliweather");
             try (PreparedStatement getCityStmt = conn.prepareStatement(getCitySql)) {
                 getCityStmt.setString(1, cityName);
                 ResultSet rs = getCityStmt.executeQuery();
@@ -124,10 +133,10 @@ public class DatabaseHandler {
         return null;
     }
     public void saveCity(String cityName, double latitude, double longitude) {
-        String insertCitySql = "INSERT INTO weather (cityName, latitude, longitude) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE latitude=?, longitude=?";
-        try (Connection conn = DriverManager.getConnection(CONNECTION_URL, DB_USER, DB_PASSWORD)) {
+        String insertCitySql = "INSERT INTO aliweather (cityName, latitude, longitude) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE latitude=?, longitude=?";
+        try (Connection conn = DatabaseConnection.getConnection()) {
             // Switch to the 'weather' database
-            conn.setCatalog("weather");
+            conn.setCatalog("aliweather");
             try (PreparedStatement insertCityStmt = conn.prepareStatement(insertCitySql)) {
                 insertCityStmt.setString(1, cityName);
                 insertCityStmt.setDouble(2, latitude);
