@@ -51,6 +51,17 @@
             <version>2.2.224</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <packagingExcludes>WEB-INF/classes/.env</packagingExcludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
 
