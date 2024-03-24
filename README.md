@@ -1,41 +1,23 @@
-# Projekt - Väderapp Integration som Konsolapplikation
+# Weather Searching App
+This application is a development from a Swedish weather searching app. It is designed to provide weather information for various cities, with a focus on Swedish cities. The application uses latitude and longitude for weather data retrieval, as the weather API only supports location-based searches.  
 
-## Förutsättningar
+## City Manager
+The CityManager class is responsible for managing the cities. It stores Swedish cities along with their respective latitude and longitude coordinates. This data is used to fetch weather information from the weather API.  
 
-Att ni installerat relevanta programvaror och verktyg som används i kursen.
+## OpenCageData API
+To enhance the functionality of the application, the OpenCageData API is used. This API allows the conversion of city names into geographical coordinates (latitude and longitude). When a new city is inputted, the OpenCageData API is used to obtain the city's coordinates. These coordinates are then stored in the MySQL weather database, specifically in the weather table. The table stores the city name, latitude, and longitude.  
 
-## Kravspecifikation
+## Open-Meteo.com
+The application uses the Open-Meteo.com API to fetch weather information using the latitude and longitude of a city. When a city name is inputted, the application first checks if the city's coordinates are already stored in the database. If they are, the application fetches the weather information directly from Open-Meteo.com using these coordinates. If the city's coordinates are not in the database, the application uses the OpenCageData API to obtain the coordinates, stores them in the database, and then fetches the weather information from Open-Meteo.com.  
 
-För att projektet ska bli godkänt ska följande krav i filen [requirements.md](requirements.md)
-vara uppfyllda.
+## Usage
+To use the application, simply input the name of the city you want to check the weather for. The application will handle the rest, providing you with the current weather information for that city.  
 
-## Rättning
+## Development
+This application was developed with Java and Maven. It uses MySQL for database management and interacts with the OpenCageData and Open-Meteo.com APIs for data retrieval. The core logic is to acheive the goal of checking weather in any city in the world by input it. Later there will be an Andriod and iOS versions as well and they will keep the same black-white console style.  
 
-- Rättning kommer ske automatiskt i pipelinen.
-- Ni ska lämna in en inlämningsrapport i en markdown fil som
-  heter [`personal_reflections.md`](documentation/personal_reflections.md) i mappen `documentation`.
-
-## Sista inlämningstid
-
-Lämna in uppgiften senast den `2024-03-25` kl. `23:59:59`.
-
-* Ni kan göra färdigt er uppgift efter deadline men ni hamnar sist i prioritering med att rättas.
-* Om ni inte lämnar in något alls får ni IG på er inlämning.
-* Om ni inte lämnar in i tid är högsta möjliga betyg G.
-* Inlämningar ska ske via SchoolHub´s plattform på [gitlab.dsve.se](https://gitlab.dsve.se/)
-
-## Frågor
-
-1. Fråga Gummiankan
-2. Fråga basgruppen
-3. Fråga klassen
-4. Fråga ChatGPT eller Gemini
-5. Fråga Gummiankan
-6. Fråga läraren
-
-Återkom till utbildaren via Google Meet/Teams/Discord eller maila mig på `marcus.medina-ramirez@molndal.se`.
-
-_OBS! Är det frågor som fler än du själv har nytta av att få svar på, använd er av Discord kanalen för frågor och svar._
+## Future Improvements
+Future improvements to this application could include expanding the list of cities, improving the user interface, and adding more detailed weather information.
 
 ## Licens
 
